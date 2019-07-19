@@ -7,7 +7,7 @@ const app = express();
 dotenv.config();
 
 //Implementation routers
-app.use('/api',routersAPI);
+app.use('/',routersAPI);
 
 app.use(function(err, req, res, next){
   res.status(422).send({err: err.message})
