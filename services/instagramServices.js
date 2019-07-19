@@ -12,15 +12,20 @@ instagramServices.formatFromTags = async ( rawJSON ) => {
   }
 
   result.media_posts = rawJSON.edge_hashtag_to_media.edges.map( media => {
+      let caption = ''
+      if(media.node.edge_media_to_caption.edges[0]){
+        caption = media.node.edge_media_to_caption.edges[0].node.text
+      }
       return temp = {
         'id': media.node.id,
         'shortcode': media.node.shortcode,
         'is_comments_disabled': media.node.comments_disabled,
-        'caption': media.node.edge_media_to_caption.edges[0].node.text,
+        'caption': caption,
         'comments_count': media.node.edge_media_to_comment.count,
         'liked_count': media.node.edge_liked_by.count,
         'preview_count': media.node.edge_media_preview_like.count,
         'created_at': media.node.taken_at_timestamp,
+        'thumbnail_url': media.node.thumbnail_src,
         'display_url': media.node.display_url,
         'owner_id': media.node.owner.id,
         'is_video': media.node.is_video,
@@ -29,15 +34,20 @@ instagramServices.formatFromTags = async ( rawJSON ) => {
   })
 
   result.top_posts = rawJSON.edge_hashtag_to_top_posts.edges.map( media => {
+    let caption = ''
+    if(media.node.edge_media_to_caption.edges[0]){
+      caption = media.node.edge_media_to_caption.edges[0].node.text
+    }
     return temp = {
       'id': media.node.id,
       'shortcode': media.node.shortcode,
       'is_comments_disabled': media.node.comments_disabled,
-      'caption': media.node.edge_media_to_caption.edges[0].node.text,
+      'caption': caption,
       'comments_count': media.node.edge_media_to_comment.count,
       'liked_count': media.node.edge_liked_by.count,
       'preview_count': media.node.edge_media_preview_like.count,
       'created_at': media.node.taken_at_timestamp,
+      'thumbnail_url': media.node.thumbnail_src,
       'display_url': media.node.display_url,
       'owner_id': media.node.owner.id,
       'is_video': media.node.is_video,
@@ -68,15 +78,20 @@ instagramServices.formatFromUsername = async ( rawJSON ) => {
   }
 
   result.felix_video_timeline = rawJSON.edge_felix_video_timeline.edges.map( media => {
+      let caption = ''
+      if(media.node.edge_media_to_caption.edges[0]){
+        caption = media.node.edge_media_to_caption.edges[0].node.text
+      }
       return temp = {
         'id': media.node.id,
         'shortcode': media.node.shortcode,
         'is_comments_disabled': media.node.comments_disabled,
-        'caption': media.node.edge_media_to_caption.edges[0].node.text,
+        'caption': caption,
         'comments_count': media.node.edge_media_to_comment.count,
         'liked_count': media.node.edge_liked_by.count,
         'preview_count': media.node.edge_media_preview_like.count,
         'created_at': media.node.taken_at_timestamp,
+        'thumbnail_url': media.node.thumbnail_src,
         'display_url': media.node.display_url,
         'owner_id': media.node.owner.id,
         'is_video': media.node.is_video,
@@ -85,15 +100,20 @@ instagramServices.formatFromUsername = async ( rawJSON ) => {
   })
 
   result.timeline_media = rawJSON.edge_owner_to_timeline_media.edges.map( media => {
+      let caption = ''
+      if(media.node.edge_media_to_caption.edges[0]){
+        caption = media.node.edge_media_to_caption.edges[0].node.text
+      }
       return temp = {
         'id': media.node.id,
         'shortcode': media.node.shortcode,
         'is_comments_disabled': media.node.comments_disabled,
-        'caption': media.node.edge_media_to_caption.edges[0].node.text,
+        'caption': caption,
         'comments_count': media.node.edge_media_to_comment.count,
         'liked_count': media.node.edge_liked_by.count,
         'preview_count': media.node.edge_media_preview_like.count,
         'created_at': media.node.taken_at_timestamp,
+        'thumbnail_url': media.node.thumbnail_src,
         'display_url': media.node.display_url,
         'owner_id': media.node.owner.id,
         'is_video': media.node.is_video,
@@ -107,6 +127,10 @@ instagramServices.formatFromUsername = async ( rawJSON ) => {
 instagramServices.formatMedia = async ( rawJSON ) => {
   result = {}
   rawJSON = rawJSON.graphql.shortcode_media
+  let caption = ''
+  if(rawJSON.edge_media_to_caption.edges[0]){
+    caption = rawJSON.edge_media_to_caption.edges[0].node.text
+  }
 
   result = {
       'id': rawJSON.id,
@@ -115,7 +139,7 @@ instagramServices.formatMedia = async ( rawJSON ) => {
       'is_video': rawJSON.is_video,
       'video_url': rawJSON.video_url,
       'video_view_count': rawJSON.video_view_count,
-      'caption': rawJSON.edge_media_to_caption.edges[0].node.text,
+      'caption': caption,
       'display_url': rawJSON.display_url,
       'created_at': rawJSON.taken_at_timestamp,
       'comments_count': rawJSON.edge_media_to_parent_comment.count,
