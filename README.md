@@ -1,7 +1,6 @@
 # Instagram Public API
 
-Back in 2018 when I found this [article](https://medium.com/@h4t0n/instagram-data-scraping-550c5f2fb6f1) for my work's project. It's says that instagram did has an "open API" so we can collecting its data. Then I back in 2019 and recognize that it still working. I create an API to ease us accessing Instagram Public API with nodejs. No login, no authentication required
-For now, it has some features :
+Back in 2018 when I found this [article](https://medium.com/@h4t0n/instagram-data-scraping-550c5f2fb6f1) for my project. It's says that instagram had an "open API" so we can collecting its data. Then I back in 2019 and recognize that it still working. I create an API to ease us accessing Instagram Public API with nodejs. No login, no authentication required. For now, it has some features :
 
   - Show instagram public picture by tags
   - Show instagram public profile by username
@@ -15,8 +14,8 @@ For now, it has some features :
 4. search in instagram : /search?q={your-specified-keyword}
 
 # Parameters
-1. By using endpoints above, you will get json directly from instagram services. So, I've simplify it json by using `formated` paramater. And set it `true` for example : `https://instagram-public-api.herokuapp.com/tags/indonesia?formated=true`
-2. For pagination, you can use `next_url` value if you using formated mode. for example 
+1. By using endpoints above, you will get json directly from instagram services. So, I've simplify the json by using `formated` paramater then set it `true` . Example : `https://instagram-public-api.herokuapp.com/tags/indonesia?formated=true`
+2. For pagination, you can use `next_url` value if you using formated mode. Example 
 `https://instagram-public-api.herokuapp.com/tags/indonesia?formated=true&max_id={next_url_value}` will show the next page
 
 # How to access
