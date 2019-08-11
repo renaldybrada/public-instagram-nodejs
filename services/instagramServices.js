@@ -143,7 +143,9 @@ instagramServices.formatMedia = async ( rawJSON ) => {
       'display_url': rawJSON.display_url,
       'created_at': rawJSON.taken_at_timestamp,
       'comments_count': rawJSON.edge_media_to_parent_comment.count,
-      'liked_count': rawJSON.edge_media_preview_like.count
+      'liked_count': rawJSON.edge_media_preview_like.count,
+      'owner': rawJSON.owner,
+      'location': rawJSON.location
   }
 
   result.comments = rawJSON.edge_media_to_parent_comment.edges.map( comment => {
