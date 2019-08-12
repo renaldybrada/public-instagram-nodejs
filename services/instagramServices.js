@@ -68,6 +68,7 @@ instagramServices.formatFromUsername = async ( rawJSON ) => {
       'full_name': rawJSON.full_name,
       'username': rawJSON.username,
       'external_url': rawJSON.external_url,
+      'posts_count': rawJSON.edge_owner_to_timeline_media.count,
       'followers_count': rawJSON.edge_followed_by.count,
       'following_count': rawJSON.edge_follow.count,
       'is_business_account': rawJSON.is_business_account,
