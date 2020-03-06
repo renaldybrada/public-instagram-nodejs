@@ -11,5 +11,6 @@ router.get('/tags/:tags', instagramController.scrapByTags)
 router.get('/username/:username', instagramController.scrapByUsername)
 router.get('/media/:shortcode', instagramController.contentDetail)
 router.get('/search', instagramController.searchByQuery)
+router.get('/location/:loc_id', instagramController.searchByLocation)
 
 module.exports = router;

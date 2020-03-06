@@ -2,6 +2,7 @@ const instagramController = {};
 const axios = require('axios');
 const instagramBaseUrl = 'https://www.instagram.com/';
 const igServices = require('../services/instagramServices');
+const igLocationServices = require('../services/instagramLocationService');
 
 /**
  * Scrap Instagram feed by tags
@@ -11,7 +12,7 @@ const igServices = require('../services/instagramServices');
  */
 instagramController.scrapByTags = async (req,res) => {
   const tag = req.params.tags
-  const url = instagramBaseUrl+'explore/tags/'+tag;
+  const url = instagramBaseUrl + 'explore/tags/' + tag;
   axios.get(url, {
     params:{
       '__a':1,
@@ -41,7 +42,7 @@ instagramController.scrapByTags = async (req,res) => {
  */
 instagramController.scrapByUsername = async (req,res) => {
   const username = req.params.username;
-  const url = instagramBaseUrl+username;
+  const url = instagramBaseUrl + username;
   axios.get(url, {
     params:{
       '__a':1,
@@ -71,7 +72,7 @@ instagramController.scrapByUsername = async (req,res) => {
  */
 instagramController.contentDetail = async (req,res) => {
   const shortcode = req.params.shortcode;
-  const url = instagramBaseUrl+'p/'+shortcode;
+  const url = instagramBaseUrl + 'p/' + shortcode;
   axios.get(url, {
     params:{
       '__a':1
@@ -94,7 +95,7 @@ instagramController.contentDetail = async (req,res) => {
 
 instagramController.searchByQuery = async (req,res) => {
   const query = req.query.q
-  const url = instagramBaseUrl+'web/search/topsearch/'
+  const url = instagramBaseUrl + 'web/search/topsearch/'
   axios.get(url, {
     params:{
       'context' : 'blended',
@@ -102,6 +103,29 @@ instagramController.searchByQuery = async (req,res) => {
     }
   }).then(function (response){
     res.send(response.data)
+  }).catch(function (error) {
+    console.log(error);
+    res.json({
+      'status':'error',
+      'message': error
+    })
+  })
+}
+
+instagramController.searchByLocation = async (req,res) => {
+  const loc_id = req.params.loc_id
+  const url = instagramBaseUrl + 'explore/locations/' + loc_id
+  axios.get(url, {
+    params:{
+      '__a':1
+    }
+  }).then(async function (response){
+    if(req.query.formated == 'true'){
+      result = await igLocationServices.formated(response.data)
+    }else{
+      result = response.data
+    }
+    res.send(result)
   }).catch(function (error) {
     console.log(error);
     res.json({
