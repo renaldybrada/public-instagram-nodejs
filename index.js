@@ -21,5 +21,5 @@ app.use(function(err, req, res, next){
 });
 
 app.listen(process.env.PORT, function(req,res){
-  console.log('Express server started !');
+  console.log('Express server started on port : ' + process.env.PORT);
 })
